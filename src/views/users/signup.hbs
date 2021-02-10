@@ -1,1 +1,28 @@
-<h1>Index User</h1>
+<div class="row">
+    <div class="col-md-4 mx-auto">
+       <div class="card text-left">
+        <div class="card-header">
+            <h3>Registro de Usuarios</h3>
+        </div>   
+         <div class="card-body">
+           <form action="/users/signup" method="POST">
+               <div class="form-group">
+                   <input type="text" class="form-control" name="name" placeholder="Nombre" value="{{name}}"> 
+               </div>
+               <div class="form-group">
+                   <input type="email" class="form-control" name="email" placeholder="Email" autocomplete="off" value="{{email}}"> 
+               </div>
+               <div class="form-group">
+                   <input type="password" class="form-control" name="password" placeholder="Password" autocomplete="off" value="{{password}}"> 
+               </div>
+               <div class="form-group">
+                   <input type="password" class="form-control" name="confirm_password" placeholder="Confirmar Password" value="{{confirm_password}}"> 
+               </div>
+               <div class="form-group">
+                   <button type="submit" class="btn btn-primary btn-block">Registrar</button>
+               </div>
+           </form>
+         </div>
+       </div> 
+    </div>
+</div>
