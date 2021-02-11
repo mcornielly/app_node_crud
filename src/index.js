@@ -4,10 +4,12 @@ const exphbs = require('express-handlebars');
 const methodOverride = require('method-override');
 const session = require('express-session');
 const flash = require('connect-flash');
+const pasport = require('passport');
 
 // Initializations
 const app = express();
 require('./database');
+require('./config/passport');
 
 //Settings
 app.set('port', process.env.PORT || 3000);
@@ -16,7 +18,12 @@ app.engine('.hbs', exphbs({
     defaultLayout: 'main.hbs',
     layoutsDir:  path.join(app.get('views'), 'layouts'),
     partialsDir: path.join(app.get('views'), 'partials'),
-    extname: '.hbs'
+    extname: '.hbs',
+    runtimeOptions: {
+        allowProtoPropertiesByDefault: true,
+        allowProtoMethodsByDefault: true,
+    },
+        
 }));
 app.set('view engine', '.hbs');
 
@@ -28,12 +35,16 @@ app.use(session({
     resave: true,
     saveUninitialized: true
 }));
+app.use(pasport.initialize());
+app.use(pasport.session());
 app.use(flash());
 
 //Global Variables
 app.use((req, res, next) => {
     res.locals.success_msg = req.flash('success_msg');
     res.locals.errors_msg = req.flash('errors_msg');
+    res.locals.error = req.flash('error');
+    res.locals.user = req.user || null;
     next();
 });
 
